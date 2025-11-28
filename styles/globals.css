@@ -756,6 +756,14 @@ a {
 .company-services__content {
   max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .company-services__content {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .services-showcase {
@@ -892,6 +900,13 @@ a {
   height: 4px;
   background: linear-gradient(90deg, var(--mustard) 0%, transparent 100%);
   margin-top: 4rem;
+}
+
+@media (max-width: 768px) {
+  .company-services__divider {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
 }
 
 .company-info {
@@ -1189,6 +1204,7 @@ a {
   gap: 2rem;
   align-items: center;
   color: var(--black);
+  box-sizing: border-box;
 }
 
 .highlight__content {
@@ -2413,12 +2429,26 @@ a {
   }
 
   .hero__nav {
-    flex-wrap: wrap;
-    gap: 1rem;
+    flex-wrap: nowrap;
+    gap: 0;
     padding-bottom: 1rem;
     align-items: center;
+    justify-content: space-between;
     padding-left: 2rem;
     padding-right: 2rem;
+    width: 100%;
+  }
+
+  .logo-group {
+    flex: 0 1 auto;
+    min-width: 0;
+    margin-right: auto;
+  }
+
+  .nav__toggle {
+    margin-left: auto;
+    flex-shrink: 0;
+    margin-right: 0;
   }
 
   .hero__body {
@@ -2545,10 +2575,32 @@ a {
   }
 
 
-  .hero__actions,
-  .highlight {
-    padding: 2rem 1.5rem;
+  .hero__actions {
+    padding: 2rem;
     gap: 1.5rem;
+  }
+
+  .section.highlight.container {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .highlight {
+    padding: 2rem;
+    gap: 1.5rem;
+    margin: 0;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .highlight__content {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .highlight__content {
@@ -2654,7 +2706,7 @@ a {
   }
 
   .company-overview {
-    padding: 3rem 0;
+    padding: 3rem 2rem;
   }
 
   .company-overview__header {
@@ -2701,7 +2753,7 @@ a {
   }
 
   .company-services {
-    padding: 3rem 0 0;
+    padding: 3rem 2rem 0;
   }
 
   .company-services__header {
@@ -2753,10 +2805,23 @@ a {
     grid-template-columns: 1fr;
     gap: 1.5rem;
     margin-top: 2rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .company-overview__additional {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .info-card {
     padding: 1.5rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .info-card h3 {
@@ -2866,12 +2931,13 @@ a {
     padding: 3rem 2rem;
   }
 
+
   .company-services {
-    padding: 3rem 0 0;
+    padding: 3rem 2rem 0;
   }
 
   .about-section {
-    padding: 4rem 0 3rem;
+    padding: 4rem 2rem 3rem;
   }
 
   .section--image-split {
