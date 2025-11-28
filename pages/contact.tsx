@@ -1,10 +1,11 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import FooterSection from "@/components/FooterSection";
 
 export default function ContactPage() {
   const currentYear = new Date().getFullYear();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,6 +13,25 @@ export default function ContactPage() {
     message: "",
   });
   const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMenuOpen]);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -67,17 +87,29 @@ export default function ContactPage() {
           />
           <div className="hero__overlay">
             <nav className="hero__nav container">
-              <Link href="/" className="logo-group">
+              <Link href="/" className="logo-group" onClick={closeMenu}>
                 <span className="logo-line logo-line--primary">Muhammad Ashraf Rana</span>
                 <span className="logo-line logo-line--secondary">
                   General Transport L.L.C - S.P.C
                 </span>
               </Link>
-              <div className="nav__actions">
-                <Link href="/#equipment">Equipment</Link>
-                <Link href="/#about">About</Link>
-                <Link href="/contact">Contact</Link>
-                <a className="btn btn--outline" href="tel:+971501324882">
+              <button 
+                className="nav__toggle"
+                onClick={toggleMenu}
+                aria-label="Toggle menu"
+                aria-expanded={isMenuOpen}
+              >
+                <span className={`nav__toggle-icon ${isMenuOpen ? 'nav__toggle-icon--open' : ''}`}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
+              </button>
+              <div className={`nav__actions ${isMenuOpen ? 'nav__actions--open' : ''}`}>
+                <Link href="/#equipment" onClick={closeMenu}>Equipment</Link>
+                <Link href="/#about" onClick={closeMenu}>About</Link>
+                <Link href="/contact" onClick={closeMenu}>Contact</Link>
+                <a className="btn btn--outline" href="tel:+971501324882" onClick={closeMenu}>
                   Call Now
                 </a>
               </div>

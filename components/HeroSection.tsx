@@ -1,6 +1,28 @@
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export default function HeroSection() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMenuOpen]);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <header className="hero" id="home">
       <div
@@ -11,17 +33,29 @@ export default function HeroSection() {
       />
       <div className="hero__overlay">
         <nav className="hero__nav container">
-          <Link href="/" className="logo-group">
+          <Link href="/" className="logo-group" onClick={closeMenu}>
             <span className="logo-line logo-line--primary">Muhammad Ashraf Rana</span>
             <span className="logo-line logo-line--secondary">
               General Transport L.L.C - S.P.C
             </span>
           </Link>
-          <div className="nav__actions">
-            <a href="#equipment">Equipment</a>
-            <a href="#about">About</a>
-            <Link href="/contact">Contact</Link>
-            <a className="btn btn--outline" href="tel:+971501324882">
+          <button 
+            className="nav__toggle"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+          >
+            <span className={`nav__toggle-icon ${isMenuOpen ? 'nav__toggle-icon--open' : ''}`}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+          <div className={`nav__actions ${isMenuOpen ? 'nav__actions--open' : ''}`}>
+            <a href="#equipment" onClick={closeMenu}>Equipment</a>
+            <a href="#about" onClick={closeMenu}>About</a>
+            <Link href="/contact" onClick={closeMenu}>Contact</Link>
+            <a className="btn btn--outline" href="tel:+971501324882" onClick={closeMenu}>
               Call Now
             </a>
           </div>
