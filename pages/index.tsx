@@ -1,87 +1,206 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
-import styles from "@/styles/Home.module.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { useState, useEffect } from "react";
+import HeroSection from "@/components/HeroSection";
+import CompanyOverviewSection from "@/components/CompanyOverviewSection";
+import EquipmentSection from "@/components/EquipmentSection";
+import InstantQuoteSection from "@/components/InstantQuoteSection";
+import AboutSection from "@/components/AboutSection";
+import CompanySection from "@/components/CompanySection";
+import FooterSection from "@/components/FooterSection";
+import ImageModal from "@/components/ImageModal";
 
 export default function Home() {
+  const currentYear = new Date().getFullYear();
+  const [modalImage, setModalImage] = useState<string | null>(null);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [galleryIndex, setGalleryIndex] = useState<{ [key: string]: number }>({});
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    equipment: "",
+    rentalDuration: "",
+    startDate: "",
+    location: "",
+  });
+  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+  useEffect(() => {
+    if (modalImage) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [modalImage]);
+
+  useEffect(() => {
+    if (showContactForm) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [showContactForm]);
+
+  const openModal = (imageSrc: string) => {
+    setModalImage(imageSrc);
+    setZoomLevel(1);
+  };
+
+  const closeModal = () => {
+    setModalImage(null);
+    setZoomLevel(1);
+  };
+
+  const handleZoom = (delta: number) => {
+    setZoomLevel((prev) => Math.max(0.5, Math.min(3, prev + delta)));
+  };
+
+  const getGalleryIndex = (equipmentName: string) => {
+    return galleryIndex[equipmentName] || 0;
+  };
+
+  const nextGalleryImage = (equipmentName: string, totalImages: number) => {
+    setGalleryIndex((prev) => ({
+      ...prev,
+      [equipmentName]: ((prev[equipmentName] || 0) + 1) % totalImages,
+    }));
+  };
+
+  const prevGalleryImage = (equipmentName: string, totalImages: number) => {
+    setGalleryIndex((prev) => ({
+      ...prev,
+      [equipmentName]: ((prev[equipmentName] || 0) - 1 + totalImages) % totalImages,
+    }));
+  };
+
+  const goToGalleryImage = (equipmentName: string, index: number) => {
+    setGalleryIndex((prev) => ({
+      ...prev,
+      [equipmentName]: index,
+    }));
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormStatus("submitting");
+
+    try {
+      const subject = formData.equipment 
+        ? `Equipment Inquiry: ${formData.equipment} - ${formData.name}`
+        : `Inquiry from ${formData.name}`;
+      
+      const body = [
+        `Name: ${formData.name}`,
+        `Email: ${formData.email}`,
+        `Phone: ${formData.phone}`,
+        formData.equipment ? `Equipment: ${formData.equipment}` : '',
+        formData.rentalDuration ? `Rental Duration: ${formData.rentalDuration}` : '',
+        formData.startDate ? `Start Date: ${formData.startDate}` : '',
+        formData.location ? `Location: ${formData.location}` : '',
+        '',
+        `Message:`,
+        formData.message
+      ].filter(Boolean).join('%0D%0A');
+      
+      const mailtoLink = `mailto:info@margt.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+      window.location.href = mailtoLink;
+      
+      setTimeout(() => {
+        setFormStatus("success");
+        setFormData({ name: "", email: "", phone: "", message: "", equipment: "", rentalDuration: "", startDate: "", location: "" });
+        setTimeout(() => {
+          setFormStatus("idle");
+          setShowContactForm(false);
+        }, 3000);
+      }, 500);
+    } catch {
+      setFormStatus("error");
+      setTimeout(() => {
+        setFormStatus("idle");
+      }, 3000);
+    }
+  };
+
+  const handleResetForm = () => {
+    setFormStatus("idle");
+    setFormData({ name: "", email: "", phone: "", message: "", equipment: "", rentalDuration: "", startDate: "", location: "" });
+  };
+
   return (
     <>
       <Head>
-        <title>Create Next App</title>
-        <meta name="description" content="Generated by create next app" />
+        <title>MARGT | Heavy Equipment Rental & Transport</title>
+        <meta
+          name="description"
+          content="MARGT provides heavy equipment rental, transport logistics, and skilled manpower services across the UAE."
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div
-        className={`${styles.page} ${geistSans.variable} ${geistMono.variable}`}
-      >
-        <main className={styles.main}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js logo"
-            width={100}
-            height={20}
-            priority
+      <div>
+        <HeroSection />
+
+        <main>
+          <CompanySection />
+
+          <EquipmentSection
+            onOpenModal={openModal}
+            onNextImage={nextGalleryImage}
+            onPrevImage={prevGalleryImage}
+            onGoToImage={goToGalleryImage}
+            getGalleryIndex={getGalleryIndex}
+            onInquire={(equipmentName) => {
+              setFormData((prev) => ({
+                ...prev,
+                equipment: equipmentName || "",
+              }));
+              setShowContactForm(true);
+            }}
           />
-          <div className={styles.intro}>
-            <h1>To get started, edit the index.tsx file.</h1>
-            <p>
-              Looking for a starting point or more instructions? Head over to{" "}
-              <a
-                href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Templates
-              </a>{" "}
-              or the{" "}
-              <a
-                href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Learning
-              </a>{" "}
-              center.
-            </p>
-          </div>
-          <div className={styles.ctas}>
-            <a
-              className={styles.primary}
-              href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                className={styles.logo}
-                src="/vercel.svg"
-                alt="Vercel logomark"
-                width={16}
-                height={16}
-              />
-              Deploy Now
-            </a>
-            <a
-              className={styles.secondary}
-              href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Documentation
-            </a>
-          </div>
+
+          <AboutSection />
+
+          <CompanyOverviewSection />
+
+          <InstantQuoteSection
+            showContactForm={showContactForm}
+            formData={formData}
+            formStatus={formStatus}
+            onShowForm={() => setShowContactForm(true)}
+            onHideForm={() => setShowContactForm(false)}
+            onInputChange={handleInputChange}
+            onSubmit={handleSubmit}
+            onResetForm={handleResetForm}
+          />
         </main>
+
+        <FooterSection currentYear={currentYear} />
+
+        <ImageModal
+          imageSrc={modalImage}
+          zoomLevel={zoomLevel}
+          onClose={closeModal}
+          onZoom={handleZoom}
+          onResetZoom={() => setZoomLevel(1)}
+        />
       </div>
     </>
   );
