@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function HeroSection() {
   return (
     <header className="hero" id="home">
@@ -9,16 +11,16 @@ export default function HeroSection() {
       />
       <div className="hero__overlay">
         <nav className="hero__nav container">
-          <div className="logo-group">
+          <Link href="/" className="logo-group">
             <span className="logo-line logo-line--primary">Muhammad Ashraf Rana</span>
             <span className="logo-line logo-line--secondary">
               General Transport L.L.C - S.P.C
             </span>
-          </div>
+          </Link>
           <div className="nav__actions">
             <a href="#equipment">Equipment</a>
             <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+            <Link href="/contact">Contact</Link>
             <a className="btn btn--outline" href="tel:+971501324882">
               Call Now
             </a>

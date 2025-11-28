@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface FooterSectionProps {
   currentYear: number;
 }
@@ -46,9 +48,9 @@ export default function FooterSection({ currentYear }: FooterSectionProps) {
             Share your project scope and schedule. Our team will confirm
             availability and mobilize the right mix of equipment and experts.
           </p>
-          <a className="btn btn--outline" href="/contact">
+          <Link className="btn btn--outline" href="/contact">
             Contact Form
-          </a>
+          </Link>
         </div>
       </div>
       <p className="footer__note">
