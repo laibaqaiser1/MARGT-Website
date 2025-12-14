@@ -2886,7 +2886,7 @@ a {
 
   .company-overview__intro p {
     font-size: 1rem;
-    text-align: center;
+    text-align: left;
   }
 
   .company-overview__grid {
@@ -2926,7 +2926,7 @@ a {
 
   .overview-card p {
     font-size: 1rem;
-    text-align: center;
+    text-align: left;
   }
 
   .company-services {
@@ -2939,7 +2939,7 @@ a {
   }
   
   .company-services__subtitle {
-    text-align: center;
+    text-align: left;
   }
 
   .services-showcase {
@@ -2966,7 +2966,7 @@ a {
   }
 
   .service-item__content {
-    text-align: center;
+    text-align: left;
   }
   
   .service-item__content h3 {
@@ -3016,7 +3016,7 @@ a {
 
   .info-card p {
     font-size: 1rem;
-    text-align: center;
+    text-align: left;
   }
 
   .company-overview__divider {
@@ -3041,7 +3041,7 @@ a {
   .management-team__header p {
     font-size: 1rem;
     padding: 0 1rem;
-    text-align: center;
+    text-align: left;
   }
 
   .profile-card {
@@ -3070,7 +3070,7 @@ a {
 
   .profile-card__description {
     font-size: 1rem;
-    text-align: center;
+    text-align: left;
   }
 
   .footer {
