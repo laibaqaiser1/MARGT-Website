@@ -5,7 +5,7 @@ export default function AboutSection() {
     <section className="section about-section container" id="about">
       <div className="about-section__header">
         <h2>Why Choose MARGT</h2>
-        <p className="about-section__subtitle">Your Premier Partner for Heavy Equipment Solutions</p>
+        <p className="about-section__subtitle">Your Trusted Partner for Heavy Machinery Rental Solutions</p>
       </div>
       <div className="grid grid--four">
         {whyChooseUs.map((item) => (

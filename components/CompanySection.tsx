@@ -3,7 +3,7 @@ export default function CompanySection() {
     <section className="section company-services container" id="company">
       <div className="company-services__header">
         <h2>Our Services & Solutions</h2>
-        <p className="company-services__subtitle">Comprehensive Equipment Rental, Transport, and Manpower Services</p>
+        <p className="company-services__subtitle">We provide comprehensive Heavy Equipment Rental, Material Transportation, and Manpower Supply Services to support your project needs.</p>
       </div>
 
       <div className="company-services__content">

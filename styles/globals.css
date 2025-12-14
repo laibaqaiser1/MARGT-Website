@@ -286,8 +286,9 @@ a {
   font-size: 1.15rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 2.5rem;
+  margin: 0 auto 2.5rem;
   max-width: 600px;
+  text-align: center;
 }
 
 .hero__actions {
@@ -993,7 +994,7 @@ a {
 }
 
 .company-overview__intro {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto 4rem;
   text-align: center;
   width: 100%;
@@ -1005,6 +1006,11 @@ a {
   color: var(--charcoal);
 }
 
+.company-overview__content {
+  width: 100%;
+  max-width: 100%;
+}
+
 .company-overview__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -1013,12 +1019,131 @@ a {
   width: 100%;
 }
 
+.company-overview__grid--vision-mission {
+  grid-template-columns: 1fr 1fr;
+  max-width: 100%;
+}
+
+.company-overview__values-wrapper {
+  width: 100%;
+  margin-top: 2.5rem;
+}
+
+.overview-card--full-width {
+  width: 100%;
+  max-width: 100%;
+}
+
 .company-overview__additional {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 2.5rem;
   margin-top: 4rem;
   width: 100%;
+}
+
+.company-overview__divider {
+  height: 4px;
+  background: linear-gradient(90deg, var(--mustard) 0%, transparent 100%);
+  margin-top: 4rem;
+  width: 100%;
+}
+
+.company-overview__management {
+  margin-top: 5rem;
+  width: 100%;
+}
+
+.management-team__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.management-team__header h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0 0 1.5rem;
+  color: var(--black);
+  line-height: 1.2;
+}
+
+.management-team__header p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--charcoal);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.management-team__profile {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.profile-card {
+  background: linear-gradient(135deg, #fff 0%, rgba(255, 183, 3, 0.02) 100%);
+  border-radius: 24px;
+  padding: 3rem;
+  box-shadow: none;
+  border: 2px solid rgba(255, 183, 3, 0.1);
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+}
+
+.profile-card:hover {
+  box-shadow: none;
+  border-color: rgba(255, 183, 3, 0.3);
+  transform: translateY(-4px);
+}
+
+.profile-card__image {
+  flex-shrink: 0;
+  width: 300px;
+  height: 300px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.profile-card__image .profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.profile-card__content {
+  flex: 1;
+}
+
+.profile-card__content h3 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem;
+  color: var(--black);
+  line-height: 1.2;
+}
+
+.profile-card__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--mustard);
+  margin: 0 0 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.profile-card__description {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--charcoal);
+  margin: 0;
 }
 
 .overview-card {
@@ -1081,6 +1206,18 @@ a {
   color: var(--mustard);
 }
 
+.overview-card--respect .overview-card__icon {
+  background: linear-gradient(135deg, rgba(255, 183, 3, 0.15) 0%, rgba(255, 183, 3, 0.05) 100%);
+}
+
+.overview-card--integrity .overview-card__icon {
+  background: linear-gradient(135deg, rgba(11, 11, 11, 0.1) 0%, rgba(11, 11, 11, 0.05) 100%);
+}
+
+.overview-card--innovation .overview-card__icon {
+  background: linear-gradient(135deg, rgba(255, 183, 3, 0.15) 0%, rgba(255, 183, 3, 0.05) 100%);
+}
+
 .overview-card:hover .overview-card__icon {
   transform: scale(1.1) rotate(5deg);
 }
@@ -1089,6 +1226,24 @@ a {
   width: 48px;
   height: 48px;
   stroke-width: 2;
+}
+
+.overview-card__icon-image {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.overview-card--respect .overview-card__icon-image {
+  filter: brightness(0) saturate(100%) invert(77%) sepia(100%) saturate(10000%) hue-rotate(0deg);
+}
+
+.overview-card--integrity .overview-card__icon-image {
+  filter: brightness(0) saturate(100%);
+}
+
+.overview-card--innovation .overview-card__icon-image {
+  filter: brightness(0) saturate(100%) invert(77%) sepia(100%) saturate(10000%) hue-rotate(0deg);
 }
 
 .overview-card h3 {
@@ -1115,6 +1270,18 @@ a {
 }
 
 .overview-card--values {
+  background: linear-gradient(135deg, #fff 0%, rgba(255, 183, 3, 0.03) 100%);
+}
+
+.overview-card--respect {
+  background: linear-gradient(135deg, #fff 0%, rgba(255, 183, 3, 0.03) 100%);
+}
+
+.overview-card--integrity {
+  background: linear-gradient(135deg, #fff 0%, rgba(11, 11, 11, 0.02) 100%);
+}
+
+.overview-card--innovation {
   background: linear-gradient(135deg, #fff 0%, rgba(255, 183, 3, 0.03) 100%);
 }
 
@@ -2706,7 +2873,7 @@ a {
   }
 
   .company-overview {
-    padding: 3rem 2rem;
+    padding: 3rem 0;
   }
 
   .company-overview__header {
@@ -2724,6 +2891,14 @@ a {
   .company-overview__grid {
     grid-template-columns: 1fr;
     gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .company-overview__grid--vision-mission {
+    grid-template-columns: 1fr;
+  }
+
+  .company-overview__values-wrapper {
     margin-top: 2rem;
   }
 
@@ -2829,6 +3004,55 @@ a {
   }
 
   .info-card p {
+    font-size: 1rem;
+  }
+
+  .company-overview__divider {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 3rem;
+  }
+
+  .company-overview__management {
+    margin-top: 3rem;
+  }
+
+  .management-team__header {
+    margin-bottom: 2.5rem;
+  }
+
+  .management-team__header h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .management-team__header p {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+
+  .profile-card {
+    flex-direction: column;
+    padding: 2rem;
+    gap: 2rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-card__image {
+    width: 250px;
+    height: 250px;
+  }
+
+  .profile-card__content h3 {
+    font-size: 1.75rem;
+  }
+
+  .profile-card__title {
+    font-size: 1rem;
+  }
+
+  .profile-card__description {
     font-size: 1rem;
   }
 

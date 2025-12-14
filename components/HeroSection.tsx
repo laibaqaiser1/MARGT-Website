@@ -64,14 +64,14 @@ export default function HeroSection() {
           <div className="hero__content">
             <div className="hero__eyebrow">24/7 Equipment Rental</div>
             <h1>
-              Rental Across
+              Rental of Heavy Equipment Across
               <span> The UAE</span>
             </h1>
             <p className="hero__callout">
-              Call Now – <a href="tel:+971501324882">+971 50 132 4882</a> | <a href="tel:+971501324882">042349750</a>
+              Call Now <a href="tel:+971501324882">+971 50 132 4882</a>      <a href="tel:+971526607748">+971 52 660 7748</a>
             </p>
             <p className="hero__description">
-              Premium JCB and Bobcat equipment rental services. Well-maintained
+              Premium JCB, Bobcat and other heavy equipment rental services. Well-maintained
               machinery with certified operators ready for your construction projects across all Emirates.
             </p>
             <div className="hero__actions">

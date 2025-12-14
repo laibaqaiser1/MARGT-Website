@@ -33,11 +33,11 @@ export default function FooterSection({ currentYear }: FooterSectionProps) {
             <li>
               <span>Website</span>
               <a
-                href="https://www.margt.com"
+                href="https://ranaequipmentrentals.com/"
                 target="_blank"
                 rel="noreferrer"
               >
-                www.margt.com
+                ranaequipmentrentals.com
               </a>
             </li>
           </ul>
