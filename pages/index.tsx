@@ -103,35 +103,31 @@ export default function Home() {
     setFormStatus("submitting");
 
     try {
-      const subject = formData.equipment 
-        ? `Equipment Inquiry: ${formData.equipment} - ${formData.name}`
-        : `Inquiry from ${formData.name}`;
-      
-      const body = [
-        `Name: ${formData.name}`,
-        `Email: ${formData.email}`,
-        `Phone: ${formData.phone}`,
-        formData.equipment ? `Equipment: ${formData.equipment}` : '',
-        formData.rentalDuration ? `Rental Duration: ${formData.rentalDuration}` : '',
-        formData.startDate ? `Start Date: ${formData.startDate}` : '',
-        formData.location ? `Location: ${formData.location}` : '',
-        '',
-        `Message:`,
-        formData.message
-      ].filter(Boolean).join('%0D%0A');
-      
-      const mailtoLink = `mailto:info@margt.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-      window.location.href = mailtoLink;
-      
-      setTimeout(() => {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          type: "inquiry",
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
         setFormStatus("success");
         setFormData({ name: "", email: "", phone: "", message: "", equipment: "", rentalDuration: "", startDate: "", location: "" });
         setTimeout(() => {
           setFormStatus("idle");
           setShowContactForm(false);
         }, 3000);
-      }, 500);
-    } catch {
+      } else {
+        throw new Error(data.error || "Failed to send email");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
       setFormStatus("error");
       setTimeout(() => {
         setFormStatus("idle");

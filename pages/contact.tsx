@@ -48,17 +48,30 @@ export default function ContactPage() {
     setFormStatus("submitting");
 
     try {
-      const mailtoLink = `mailto:info@margt.com?subject=Contact from ${formData.name}&body=Name: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0APhone: ${formData.phone}%0D%0A%0D%0AMessage:%0D%0A${formData.message}`;
-      window.location.href = mailtoLink;
-      
-      setTimeout(() => {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          type: "contact",
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
         setFormStatus("success");
         setFormData({ name: "", email: "", phone: "", message: "" });
         setTimeout(() => {
           setFormStatus("idle");
         }, 3000);
-      }, 500);
-    } catch {
+      } else {
+        throw new Error(data.error || "Failed to send email");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
       setFormStatus("error");
       setTimeout(() => {
         setFormStatus("idle");
@@ -135,7 +148,7 @@ export default function ContactPage() {
                     <div className="contact-info__item">
                       <p className="contact-info__label">Our Mailbox:</p>
                       <p className="contact-info__value">
-                        <a href="mailto:info@margt.com">info@margt.com</a>
+                        <a href="mailto:rana.margt339@gmail.com">rana.margt339@gmail.com</a>
                       </p>
                     </div>
                     <div className="contact-info__item">

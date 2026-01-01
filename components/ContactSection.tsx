@@ -39,7 +39,7 @@ export default function ContactSection({
           <div className="contact-info__item">
             <p className="contact-info__label">Our Mailbox:</p>
             <p className="contact-info__value">
-              <a href="mailto:info@margt.com">info@margt.com</a>
+              <a href="mailto:rana.margt339@gmail.com">rana.margt339@gmail.com</a>
             </p>
           </div>
           <div className="contact-info__item">

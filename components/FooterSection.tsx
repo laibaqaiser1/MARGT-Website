@@ -28,7 +28,7 @@ export default function FooterSection({ currentYear }: FooterSectionProps) {
             </li>
             <li>
               <span>Email</span>
-              <a href="mailto:info@margt.com">info@margt.com</a>
+              <a href="mailto:rana.margt339@gmail.com">rana.margt339@gmail.com</a>
             </li>
             <li>
               <span>Website</span>
